@@ -1,13 +1,16 @@
 use std::fmt;
 
+/// Lisp式を表すトレイト
 pub trait Expression: fmt::Debug {}
 
+/// アトム値を取得するトレイト
 pub trait Atom {
     type Val;
 
     fn val(&self) -> &Self::Val;
 }
 
+/// 整数アトム
 #[derive(Debug)]
 pub struct IntAtom {
     pub n: i32,
@@ -23,6 +26,7 @@ impl Atom for IntAtom {
     }
 }
 
+/// シンボルアトム
 #[derive(Debug)]
 pub struct SymbolAtom {
     pub name: String,
@@ -38,6 +42,7 @@ impl Atom for SymbolAtom {
     }
 }
 
+/// リスト式
 #[derive(Debug)]
 pub struct ListExpression {
     pub elems: Vec<Box<dyn Expression>>,
