@@ -78,3 +78,29 @@ fn parse_rec(tokens: Vec<String>) -> Box<dyn Expression> {
 
     Box::new(ls)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_parse_number() {
+        let expected = "IntAtom { n: 42 }";
+        let actual = format!("{:?}", parse("42"));
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn test_parse_symbol() {
+        let expected = "SymbolAtom { name: \"add\" }";
+        let actual = format!("{:?}", parse("add"));
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn test_parse_list() {
+        let expected = "ListExpression { elems: [SymbolAtom { name: \"+\" }, IntAtom { n: 1 }, ListExpression { elems: [SymbolAtom { name: \"*\" }, IntAtom { n: 2 }, IntAtom { n: 4 }] }] }";
+        let actual = format!("{:?}", parse("(+ 1 (* 2 4))"));
+        assert_eq!(actual, expected);
+    }
+}
