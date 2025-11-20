@@ -13,8 +13,8 @@ fn main() {
         .read_line(&mut input_str)
         .expect("Failed to read line");
 
-    let tokens = parse(&input_str);
-
-    // FIXME debug
-    println!("{tokens:?}");
+    match parse(&input_str) {
+        Ok(expr) => println!("{expr:?}"),
+        Err(e) => eprintln!("Error: {}", e),
+    }
 }
